@@ -13,11 +13,13 @@ OWD=$PWD
 cd ${repodir}
 
 for repo in $repos; do
-  if [ ! -e $repo ];
+  repo_dir=`echo $repo | awk -F"/" '{print \$NF}'`
+  if [ ! -e $repo_dir ]; then
     git clone --mirror $repo
   else
-    cd $repo
+    cd $repo_dir
     git fetch --all
   fi
 done
 cd $OWD
+
